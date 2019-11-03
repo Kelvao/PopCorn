@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class WebServiceClient {
 
-    private var webService: OmdbWebService
+    var webService: OmdbWebService
 
     companion object {
         private const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
