@@ -17,8 +17,6 @@ class DefaultCoroutineScope : ExecutorCoroutineScope, CoroutineScope {
         initCoroutine(this.action, onError)
     }
 
-    override suspend fun <T> runAsync(run: suspend () -> T) = coroutineScope { async { run() } }
-
     private fun initCoroutine(run: suspend () -> Unit, onError: (PopCornException) -> Unit = {}) =
         launch {
             try {
