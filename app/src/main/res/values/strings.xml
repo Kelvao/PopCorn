@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PopCorn</string>
+
+    <string name="empty_state_initial_title">Nada por aqui ainda</string>
+    <string name="empty_state_initial_message">Use a barra de busca para começar!</string>
+
+    <string name="empty_state_empty_title">Busca sem Resultados</string>
+    <string name="empty_state_empty_message">Tente buscar novamente usando\num nome de filme diferente</string>
 </resources>

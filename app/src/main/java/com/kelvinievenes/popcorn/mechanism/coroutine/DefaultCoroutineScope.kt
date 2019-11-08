@@ -1,4 +1,4 @@
-package com.kelvinievenes.popcorn.controller
+package com.kelvinievenes.popcorn.mechanism.coroutine
 
 import com.kelvinievenes.popcorn.data.repository.base.PopCornException
 import kotlinx.coroutines.*
@@ -17,8 +17,6 @@ class DefaultCoroutineScope : ExecutorCoroutineScope, CoroutineScope {
         initCoroutine(this.action, onError)
     }
 
-    override suspend fun <T> runAsync(run: suspend () -> T) = coroutineScope { async { run() } }
-
     private fun initCoroutine(run: suspend () -> Unit, onError: (PopCornException) -> Unit = {}) =
         launch {
             try {
@@ -29,4 +27,5 @@ class DefaultCoroutineScope : ExecutorCoroutineScope, CoroutineScope {
         }
 }
 
-fun getCoroutineScope(): DefaultCoroutineScope = DefaultCoroutineScope()
+fun getCoroutineScope(): DefaultCoroutineScope =
+    DefaultCoroutineScope()
