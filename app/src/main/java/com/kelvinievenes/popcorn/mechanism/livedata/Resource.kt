@@ -21,9 +21,13 @@ data class Resource<out DataType>(
             )
 
         fun <DataType> successNextPage(data: DataType? = null): Resource<DataType> =
-            Resource(
-                Status.SUCCESS_NEXT_PAGE, data = data
-            )
+            Resource(Status.SUCCESS_NEXT_PAGE, data = data)
+
+        fun <DataType> empty(): Resource<DataType> =
+            Resource(Status.EMPTY)
+
+        fun <DataType> emptyNextPage(): Resource<DataType> =
+            Resource(Status.EMPTY_NEXT_PAGE)
 
         fun <DataType> error(
             message: String? = null, errorCode: Int? = null,
@@ -48,13 +52,6 @@ data class Resource<out DataType>(
                 errorMessageId = errorMessageId,
                 data = data
             )
-
-        fun <DataType> empty(): Resource<DataType> =
-            Resource(Status.EMPTY)
-
-        fun <DataType> emptyNextPage(): Resource<DataType> =
-            Resource(Status.EMPTY_NEXT_PAGE)
-
     }
 }
 

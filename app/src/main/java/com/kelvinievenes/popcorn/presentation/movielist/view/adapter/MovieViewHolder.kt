@@ -43,7 +43,6 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         isFirstResource: Boolean
                     ): Boolean {
                         poster.scaleType = ImageView.ScaleType.CENTER_CROP
-                        loader.visibility = GONE
                         return false
                     }
 
