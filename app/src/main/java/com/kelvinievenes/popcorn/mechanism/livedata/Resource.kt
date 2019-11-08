@@ -15,6 +15,9 @@ data class Resource<out DataType>(
         fun <DataType> loading(): Resource<DataType> =
             Resource(Status.LOADING)
 
+        fun <DataType> loadingNextPage(): Resource<DataType> =
+            Resource(Status.LOADING_NEXT_PAGE)
+
         fun <DataType> success(data: DataType? = null): Resource<DataType> =
             Resource(
                 Status.SUCCESS, data = data
@@ -52,6 +55,7 @@ data class Resource<out DataType>(
                 errorMessageId = errorMessageId,
                 data = data
             )
+
     }
 }
 
@@ -60,6 +64,7 @@ enum class Status {
     SUCCESS,
     EMPTY,
     ERROR,
+    LOADING_NEXT_PAGE,
     SUCCESS_NEXT_PAGE,
     EMPTY_NEXT_PAGE,
     ERROR_NEXT_PAGE

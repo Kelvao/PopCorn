@@ -12,13 +12,11 @@ class MovieListPresenter(
 ) : ExecutorCoroutineScope by getCoroutineScope() {
 
     val moviesLiveData = MutableLiveDataResource<MutableList<Movie>>()
-    private var blockNextGetMore = false
 
     fun getMovieList(search: String) = runCoroutine {
         moviesLiveData.postValue(Resource.loading())
         val moviesList = useCase.getMovieList(search)
         if (moviesList.isEmpty()) {
-            blockNextGetMore = true
             moviesLiveData.postValue(Resource.empty())
         } else {
             moviesLiveData.postValue(Resource.success(moviesList))
@@ -28,8 +26,7 @@ class MovieListPresenter(
     }
 
     fun getMoreMovies() = runCoroutine {
-        if (blockNextGetMore) cancelJobs()
-
+        moviesLiveData.postValue(Resource.loadingNextPage())
         val moviesList = useCase.getMovieList()
         if (moviesList.isEmpty()) {
             moviesLiveData.postValue(Resource.emptyNextPage())
