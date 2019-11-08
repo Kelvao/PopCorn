@@ -1,4 +1,4 @@
-package com.kelvinievenes.popcorn.controller
+package com.kelvinievenes.popcorn.mechanism.coroutine
 
 import com.kelvinievenes.popcorn.data.repository.base.PopCornException
 import kotlinx.coroutines.*
@@ -27,4 +27,5 @@ class DefaultCoroutineScope : ExecutorCoroutineScope, CoroutineScope {
         }
 }
 
-fun getCoroutineScope(): DefaultCoroutineScope = DefaultCoroutineScope()
+fun getCoroutineScope(): DefaultCoroutineScope =
+    DefaultCoroutineScope()
