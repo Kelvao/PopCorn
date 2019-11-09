@@ -16,8 +16,9 @@ data class Movie(
     val rated: String,
     val released: String,
     val runtime: String,
-    val genre: List<String>,
+    val genres: List<String>,
     val director: String,
+    val writers: String,
     val plot: String,
     val ratings: List<Rating>
 ) {
@@ -29,21 +30,25 @@ data class Movie(
         movie.rated.orEmpty(),
         movie.released.orEmpty(),
         movie.runtime.orEmpty(),
-        if (movie.genre != null && movie.genre.isNotEmpty())
-            movie.genre.replace(" ", "").split(",")
+        if (movie.genres != null && movie.genres.isNotEmpty())
+            movie.genres.replace(" ", "").split(",")
         else emptyList(),
         movie.director.orEmpty(),
+        movie.writers.orEmpty(),
         movie.plot.orEmpty(),
-        movie.ratings.map { Rating(it) }
+        if (movie.ratings != null && movie.ratings.isNotEmpty())
+            movie.ratings.map { Rating(it) }
+        else emptyList()
     )
 
-    override fun equals(other: Any?): Boolean {
-        return (other is Movie)
-                && other.imdbId == imdbId
-                && other.poster == poster
-                && other.title == title
-                && other.year == year
-    }
+    fun getPoster(quality: Quality) = poster.replace(Quality.NORMAL.quality, quality.quality)
+}
+
+enum class Quality(
+    val quality: String
+){
+    NORMAL("SX300"),
+    HIGH("SX1200")
 }
 
 data class Rating(

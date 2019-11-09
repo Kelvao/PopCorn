@@ -1,7 +1,6 @@
 package com.kelvinievenes.popcorn.data.remote
 
 import com.kelvinievenes.popcorn.BuildConfig
-import com.kelvinievenes.popcorn.data.remote.model.MovieDetailWs
 import com.kelvinievenes.popcorn.data.remote.model.MovieWs
 import com.kelvinievenes.popcorn.data.remote.model.MoviesWs
 import retrofit2.Call
@@ -20,7 +19,7 @@ interface OmdbWebService {
 
     @GET(".")
     fun getMovieDetails(
-        @Query("i") mdbId: String,
+        @Query("i") imdbId: String,
         @Query("type") type: String = TYPE,
         @Query("plot") plot: String = PLOT,
         @Query("apiKey") apiKey: String = API_SECRET

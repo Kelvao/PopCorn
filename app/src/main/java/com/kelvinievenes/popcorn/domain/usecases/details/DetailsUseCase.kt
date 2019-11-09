@@ -5,11 +5,11 @@ import com.kelvinievenes.popcorn.domain.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DetailsUseCase(private val movieRepository: MovieRepository) {
+class DetailsUseCase(private val repository: MovieRepository) {
 
     suspend fun getMovieDetails(imdbId: String) =
         withContext(Dispatchers.IO) {
-            Movie(movieRepository.getMovieDetails(imdbId))
+            Movie(repository.getMovieDetails(imdbId))
         }
 
 }

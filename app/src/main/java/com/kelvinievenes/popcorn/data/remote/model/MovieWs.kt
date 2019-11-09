@@ -10,6 +10,7 @@ data class MoviesWs(
 ): Serializable
 
 data class MovieWs(
+    @SerializedName("imdbID")
     var imdbId: String? = "",
     @SerializedName("Title")
     var title: String? = "",
@@ -24,13 +25,15 @@ data class MovieWs(
     @SerializedName("Runtime")
     val runtime: String? = "",
     @SerializedName("Genre")
-    val genre: String? = "",
+    val genres: String? = "",
     @SerializedName("Director")
     val director: String? = "",
+    @SerializedName("Writer")
+    val writers: String? = "",
     @SerializedName("Plot")
     val plot: String? = "",
     @SerializedName("Ratings")
-    val ratings: List<RatingWs> = emptyList()
+    val ratings: List<RatingWs>? = emptyList()
 ): Serializable
 
 data class RatingWs(

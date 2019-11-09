@@ -14,9 +14,14 @@ import com.kelvinievenes.popcorn.domain.model.Movie
 import com.kelvinievenes.popcorn.mechanism.imageloader.GlideApp
 import kotlinx.android.synthetic.main.movie_item.view.*
 
-class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MovieViewHolder(
+    itemView: View,
+    private var onMovieItemClick: ((Movie) -> Unit)? = null
+) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(movie: Movie) {
+        itemView.setOnClickListener { onMovieItemClick?.invoke(movie) }
+
         itemView.apply {
             title.text = movie.title
             year.text = "(${movie.year})"
