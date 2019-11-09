@@ -14,15 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".presentation.SplashActivity">
+        <activity android:name=".presentation.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.movielist.view.MovieListActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presentation.main.view.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.movielist.view.MovieListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.details.view.DetailsActivity"
             android:screenOrientation="portrait" />
