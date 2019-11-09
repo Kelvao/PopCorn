@@ -15,7 +15,7 @@ class MovieListAdapter(
     var order: SortFabMenuView.Option? = null
     set(value) {
         field = value
-        sortData()
+        sortDataIfNecessary()
         notifyDataSetChanged()
     }
 
@@ -69,14 +69,16 @@ class MovieListAdapter(
     fun addData(newData: MutableList<Movie>) {
         val lastSize = data.size
         data.addAll(newData)
-        sortData()
+        sortDataIfNecessary()
         notifyItemRangeChanged(lastSize, data.size)
     }
 
-    private fun sortData(){
-        when(order) {
-            SortFabMenuView.Option.NAME -> data.sortBy { it.title }
-            SortFabMenuView.Option.DATE -> data.sortBy { it.year }
+    private fun sortDataIfNecessary(){
+        order?.let {
+            when(order) {
+                SortFabMenuView.Option.NAME -> data.sortBy { it.title }
+                SortFabMenuView.Option.DATE -> data.sortBy { it.year }
+            }
         }
     }
 
