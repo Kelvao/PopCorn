@@ -37,7 +37,10 @@ class MovieListAdapter(
         position: Int,
         payloads: MutableList<Any>
     ) {
-        if (holder is LoaderViewHolder && payloads.isNotEmpty() && payloads[0] is Boolean) {
+        if (holder is LoaderViewHolder
+            && payloads.isNotEmpty()
+            && payloads[0] is Boolean
+        ) {
             holder.showLoader(payloads[0] as Boolean)
         }
         super.onBindViewHolder(holder, position, payloads)
@@ -60,8 +63,12 @@ class MovieListAdapter(
         notifyItemRangeChanged(lastSize, data.size)
     }
 
+    fun showLoader() {
+        notifyItemChanged(itemCount, true)
+    }
+
     fun hideLoader() {
-        notifyItemChanged(data.size, false)
+        notifyItemChanged(itemCount, false)
     }
 
     companion object {

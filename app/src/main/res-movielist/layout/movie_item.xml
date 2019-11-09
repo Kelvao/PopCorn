@@ -13,7 +13,7 @@
         android:id="@+id/loader"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorDarkGray"
         android:padding="28dp"
         app:layout_constraintBottom_toBottomOf="@id/poster"
         app:layout_constraintEnd_toEndOf="@id/poster"

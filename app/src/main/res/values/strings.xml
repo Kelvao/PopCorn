@@ -6,4 +6,6 @@
 
     <string name="empty_state_empty_title">Busca sem Resultados</string>
     <string name="empty_state_empty_message">Tente buscar novamente usando\num nome de filme diferente</string>
+
+    <string name="search_bar_hint">Buscar</string>
 </resources>

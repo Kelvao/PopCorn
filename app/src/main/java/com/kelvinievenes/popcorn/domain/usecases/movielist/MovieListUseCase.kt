@@ -14,6 +14,7 @@ class MovieListUseCase(private val repository: MovieListRepository) {
         withContext(Dispatchers.IO) {
             if (!search.isNullOrBlank()) {
                 lastSearch = search
+                lastPage = 1
             }
 
             val moviesResponse = repository.getMovieList(lastSearch, lastPage++)
