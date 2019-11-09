@@ -16,5 +16,26 @@ data class MovieWs(
     @SerializedName("Year")
     var year: String? = "",
     @SerializedName("Poster")
-    var poster: String? = ""
+    var poster: String? = "",
+    @SerializedName("Rated")
+    val rated: String? = "",
+    @SerializedName("Released")
+    val released: String? = "",
+    @SerializedName("Runtime")
+    val runtime: String? = "",
+    @SerializedName("Genre")
+    val genre: String? = "",
+    @SerializedName("Director")
+    val director: String? = "",
+    @SerializedName("Plot")
+    val plot: String? = "",
+    @SerializedName("Ratings")
+    val ratings: List<RatingWs> = emptyList()
+): Serializable
+
+data class RatingWs(
+    @SerializedName("Source")
+    val source: String? = "",
+    @SerializedName("Value")
+    val value: String? = ""
 ): Serializable

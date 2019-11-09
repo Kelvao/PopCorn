@@ -24,7 +24,7 @@ interface OmdbWebService {
         @Query("type") type: String = TYPE,
         @Query("plot") plot: String = PLOT,
         @Query("apiKey") apiKey: String = API_SECRET
-    ): Call<MovieDetailWs>
+    ): Call<MovieWs>
 
     companion object {
         private const val TYPE = "movie"

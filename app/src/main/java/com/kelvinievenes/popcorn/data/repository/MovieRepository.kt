@@ -1,6 +1,7 @@
 package com.kelvinievenes.popcorn.data.repository
 
 import com.kelvinievenes.popcorn.data.remote.datasource.MovieDataSource
+import com.kelvinievenes.popcorn.data.remote.model.MovieWs
 import com.kelvinievenes.popcorn.data.remote.model.MoviesWs
 import com.kelvinievenes.popcorn.data.repository.base.performRequest
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,7 @@ class MovieRepository(private val dataSource: MovieDataSource) {
         withContext(Dispatchers.IO) {
             performRequest(
                 dataSource.getMovieDetails(imdbId).execute()
-            )
+            ) as MovieWs
         }
 
 }
