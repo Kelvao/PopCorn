@@ -1,6 +1,8 @@
 package com.kelvinievenes.popcorn.data.remote
 
 import com.kelvinievenes.popcorn.BuildConfig
+import com.kelvinievenes.popcorn.data.remote.model.MovieDetailWs
+import com.kelvinievenes.popcorn.data.remote.model.MovieWs
 import com.kelvinievenes.popcorn.data.remote.model.MoviesWs
 import retrofit2.Call
 import retrofit2.http.GET
@@ -16,9 +18,18 @@ interface OmdbWebService {
         @Query("apiKey") apiKey: String = API_SECRET
     ): Call<MoviesWs>
 
+    @GET(".")
+    fun getMovieDetails(
+        @Query("i") mdbId: String,
+        @Query("type") type: String = TYPE,
+        @Query("plot") plot: String = PLOT,
+        @Query("apiKey") apiKey: String = API_SECRET
+    ): Call<MovieDetailWs>
+
     companion object {
-        const val TYPE = "movie"
-        const val API_SECRET = BuildConfig.WS_API_KEY
+        private const val TYPE = "movie"
+        private const val PLOT = "full"
+        private const val API_SECRET = BuildConfig.WS_API_KEY
     }
 
 }
