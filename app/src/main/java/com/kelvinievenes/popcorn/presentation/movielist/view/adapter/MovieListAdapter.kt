@@ -7,7 +7,8 @@ import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.domain.model.Movie
 
 class MovieListAdapter(
-    private var data: MutableList<Movie> = mutableListOf()
+    private var data: MutableList<Movie> = mutableListOf(),
+    private var onMovieItemClick: ((Movie) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int) =
@@ -19,7 +20,7 @@ class MovieListAdapter(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.movie_item, parent,
                     false
-                )
+                ), onMovieItemClick
             )
         } else {
             LoaderViewHolder(

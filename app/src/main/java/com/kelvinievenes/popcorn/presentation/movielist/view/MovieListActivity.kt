@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.mechanism.livedata.Status
 import com.kelvinievenes.popcorn.presentation.PopCornEmptyState.State
+import com.kelvinievenes.popcorn.presentation.details.view.DetailsActivity
 import com.kelvinievenes.popcorn.presentation.movielist.presenter.MovieListPresenter
 import com.kelvinievenes.popcorn.presentation.movielist.view.adapter.MovieListAdapter
 import kotlinx.android.synthetic.main.activity_movie_list.*
@@ -35,7 +36,9 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        movieListAdapter = MovieListAdapter()
+        movieListAdapter = MovieListAdapter {
+            startActivity(DetailsActivity.getStartIntent(this, it.imdbId))
+        }
 
         val linearLayoutManager = LinearLayoutManager(
             this,
@@ -73,6 +76,7 @@ class MovieListActivity : AppCompatActivity() {
                     movieListAdapter.showLoader()
                 }
                 Status.SUCCESS -> {
+                    movieList.scrollToPosition(0)
                     resource.data?.let {
                         movieListAdapter.setData(it)
                     }
