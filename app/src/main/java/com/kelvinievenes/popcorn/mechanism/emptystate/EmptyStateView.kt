@@ -1,4 +1,4 @@
-package com.kelvinievenes.popcorn.presentation
+package com.kelvinievenes.popcorn.mechanism.emptystate
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,9 +7,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kelvinievenes.popcorn.R
-import kotlinx.android.synthetic.main.popcorn_empty_state.view.*
+import kotlinx.android.synthetic.main.empty_state_view_layout.view.*
 
-class PopCornEmptyState @JvmOverloads constructor(
+class EmptyStateView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
@@ -20,7 +20,7 @@ class PopCornEmptyState @JvmOverloads constructor(
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.popcorn_empty_state, this, true)
+        LayoutInflater.from(context).inflate(R.layout.empty_state_view_layout, this, true)
     }
 
     private fun setupState(state: State) {

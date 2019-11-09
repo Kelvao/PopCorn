@@ -1,4 +1,4 @@
-package com.kelvinievenes.popcorn.presentation
+package com.kelvinievenes.popcorn.mechanism.searchbar
 
 import android.content.Context
 import android.text.Editable
@@ -7,16 +7,16 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kelvinievenes.popcorn.R
-import kotlinx.android.synthetic.main.popcorn_search_bar.view.*
+import kotlinx.android.synthetic.main.search_bar_view_layout.view.*
 import java.util.*
 
 
-class PopCornSearchBar @JvmOverloads constructor(
+class SearchBarView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.popcorn_search_bar, this, true)
+        LayoutInflater.from(context).inflate(R.layout.search_bar_view_layout, this, true)
     }
 
     fun addTextChangedListener(textChangedListener: (query: String) -> Unit) {

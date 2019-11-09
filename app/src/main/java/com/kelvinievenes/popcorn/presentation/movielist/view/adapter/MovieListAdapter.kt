@@ -5,11 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.domain.model.Movie
+import com.kelvinievenes.popcorn.mechanism.sort.SortFabMenuView
 
 class MovieListAdapter(
     private var data: MutableList<Movie> = mutableListOf(),
     private var onMovieItemClick: ((Movie) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var order: SortFabMenuView.Option? = null
+    set(value) {
+        field = value
+        sortDataIfNecessary()
+        notifyDataSetChanged()
+    }
 
     override fun getItemViewType(position: Int) =
         if (position < data.size && data.size > 0) ITEM_MOVIE else ITEM_LOADER
@@ -61,7 +69,17 @@ class MovieListAdapter(
     fun addData(newData: MutableList<Movie>) {
         val lastSize = data.size
         data.addAll(newData)
+        sortDataIfNecessary()
         notifyItemRangeChanged(lastSize, data.size)
+    }
+
+    private fun sortDataIfNecessary(){
+        order?.let {
+            when(order) {
+                SortFabMenuView.Option.NAME -> data.sortBy { it.title }
+                SortFabMenuView.Option.DATE -> data.sortBy { it.year }
+            }
+        }
     }
 
     fun showLoader() {

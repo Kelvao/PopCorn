@@ -11,8 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:visibility="gone"
         android:paddingTop="?actionBarSize"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/movie_item" />
 
-    <com.kelvinievenes.popcorn.presentation.PopCornEmptyState
+    <com.kelvinievenes.popcorn.mechanism.emptystate.EmptyStateView
         android:id="@+id/emptyState"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -41,10 +41,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchBar" />
 
-    <com.kelvinievenes.popcorn.presentation.PopCornSearchBar
+    <com.kelvinievenes.popcorn.mechanism.searchbar.SearchBarView
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.kelvinievenes.popcorn.mechanism.sort.SortFabMenuView
+        android:id="@+id/fabMenuSort"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
