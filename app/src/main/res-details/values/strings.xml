@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="details_year">Year: %s</string>
+    <string name="details_director">Director: %s</string>
+    <string name="details_writers">Writers: %s</string>
+    <string name="details_rated">Rated:</string>
+</resources>

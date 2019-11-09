@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         buildConfigField "String", "WS_BASE_URL", '"https://www.omdbapi.com/"'
         buildConfigField "String", "WS_API_KEY", '"764f1ac3"'
     }
@@ -50,33 +51,41 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    // AppCompat
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
+
+    // KotlinX
     implementation "androidx.core:core-ktx:$kotlinXVersion"
+
+    // Views
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    implementation "com.google.android:flexbox:$flexboxVersion"
+    implementation "com.google.android.material:material:$materialDesignVersion"
 
     // Stetho
     implementation "com.facebook.stetho:stetho:$stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     // Koin for Android
-    implementation "org.koin:koin-android:$koin"
+    implementation "org.koin:koin-android:$koinVersion"
 
     // Glide (Image loader)
-    implementation "com.github.bumptech.glide:glide:$glide"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     // OkHttp, Retrofit and GSON
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitConverterGson"
-    implementation("com.squareup.retrofit2:retrofit:$retrofit") {
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitConverterGsonVersion"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion") {
         // exclude Retrofit’s OkHttp peer-dependency module and define your own module import
         exclude module: 'okhttp'
     }
-    implementation "com.squareup.okhttp3:okhttp:$okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
-    implementation "com.google.code.gson:gson:$gson"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-
 }
