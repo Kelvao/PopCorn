@@ -14,6 +14,7 @@ ext {
     // Android
     appCompatVersion = "1.1.0"
     kotlinXVersion = "1.1.0"
+    legacySupportVersion = "1.0.0"
     coroutinesVersion = "1.0.1"
 
     // Views

@@ -51,10 +51,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // AppCompat
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
+
+    //Legacy Support
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
 
     // KotlinX
     implementation "androidx.core:core-ktx:$kotlinXVersion"

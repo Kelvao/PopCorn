@@ -1,33 +1,38 @@
 package com.kelvinievenes.popcorn.presentation.movielist.view
 
-import android.content.Context
-import android.content.Intent
+
 import android.os.Bundle
-import android.view.View.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kelvinievenes.popcorn.R
+import com.kelvinievenes.popcorn.mechanism.emptystate.EmptyStateView
 import com.kelvinievenes.popcorn.mechanism.livedata.Status
-import com.kelvinievenes.popcorn.mechanism.emptystate.EmptyStateView.State
 import com.kelvinievenes.popcorn.presentation.details.view.DetailsActivity
 import com.kelvinievenes.popcorn.presentation.movielist.presenter.MovieListPresenter
 import com.kelvinievenes.popcorn.presentation.movielist.view.adapter.MovieListAdapter
-import kotlinx.android.synthetic.main.activity_movie_list.*
+import kotlinx.android.synthetic.main.fragment_movie_list.*
 import org.koin.android.ext.android.inject
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListFragment : Fragment() {
 
     private val presenter: MovieListPresenter by inject()
     private lateinit var movieListAdapter: MovieListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_list)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = inflater.inflate(R.layout.fragment_movie_list, container, false)
 
-        showEmptyState(State.INITIAL)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        showEmptyState(EmptyStateView.State.INITIAL)
         setupRecyclerView()
         setupFabMenu()
         setupSearchBar()
@@ -36,11 +41,13 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         movieListAdapter = MovieListAdapter {
-            startActivity(DetailsActivity.getStartIntent(this, it.imdbId))
+            activity?.let { context ->
+                startActivity(DetailsActivity.getStartIntent(context, it.imdbId))
+            }
         }
 
         val linearLayoutManager = LinearLayoutManager(
-            this,
+            activity,
             LinearLayoutManager.VERTICAL,
             false
         )
@@ -74,9 +81,9 @@ class MovieListActivity : AppCompatActivity() {
             when (resource.status) {
                 Status.LOADING -> {
                     hideEmptyState()
-                    loader.visibility = VISIBLE
-                    movieList.visibility = GONE
-                    fabMenuSort.visibility = GONE
+                    loader.visibility = View.VISIBLE
+                    movieList.visibility = View.GONE
+                    fabMenuSort.visibility = View.GONE
                 }
                 Status.LOADING_NEXT_PAGE -> {
                     movieListAdapter.showLoader()
@@ -86,9 +93,9 @@ class MovieListActivity : AppCompatActivity() {
                     resource.data?.let {
                         movieListAdapter.setData(it)
                     }
-                    loader.visibility = GONE
-                    movieList.visibility = VISIBLE
-                    fabMenuSort.visibility = VISIBLE
+                    loader.visibility = View.GONE
+                    movieList.visibility = View.VISIBLE
+                    fabMenuSort.visibility = View.VISIBLE
                 }
                 Status.SUCCESS_NEXT_PAGE -> {
                     resource.data?.let {
@@ -97,9 +104,9 @@ class MovieListActivity : AppCompatActivity() {
                     movieListAdapter.hideLoader()
                 }
                 Status.EMPTY -> {
-                    showEmptyState(State.EMPTY)
-                    loader.visibility = GONE
-                    fabMenuSort.visibility = GONE
+                    showEmptyState(EmptyStateView.State.EMPTY)
+                    loader.visibility = View.GONE
+                    fabMenuSort.visibility = View.GONE
                 }
                 Status.EMPTY_NEXT_PAGE -> {
                     movieListAdapter.hideLoader()
@@ -107,8 +114,8 @@ class MovieListActivity : AppCompatActivity() {
                 Status.ERROR -> {
                     showErrorMessage(resource.message)
                     movieListAdapter.hideLoader()
-                    loader.visibility = GONE
-                    fabMenuSort.visibility = GONE
+                    loader.visibility = View.GONE
+                    fabMenuSort.visibility = View.GONE
                 }
                 Status.ERROR_NEXT_PAGE -> {
                     showErrorMessage(resource.message)
@@ -118,26 +125,19 @@ class MovieListActivity : AppCompatActivity() {
         })
     }
 
-    private fun showEmptyState(state: State) {
-        runOnUiThread {
-            emptyState.visibility = VISIBLE
-            emptyState.state = state
-        }
+    private fun showEmptyState(state: EmptyStateView.State) {
+        emptyState.visibility = View.VISIBLE
+        emptyState.state = state
     }
 
     private fun hideEmptyState() {
-        emptyState.visibility = GONE
+        emptyState.visibility = View.GONE
     }
 
     private fun showErrorMessage(message: String?) {
         message?.let {
-            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun getStartIntent(context: Context): Intent =
-            Intent(context, MovieListActivity::class.java)
-    }
 }

@@ -5,7 +5,6 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.presentation.main.view.MainActivity
-import com.kelvinievenes.popcorn.presentation.movielist.view.MovieListActivity
 
 class SplashActivity : AppCompatActivity() {
 
