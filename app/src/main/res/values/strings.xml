@@ -11,4 +11,7 @@
     <string name="empty_state_empty_message">Tente buscar novamente usando\num nome de filme diferente</string>
 
     <string name="search_bar_hint">Buscar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
