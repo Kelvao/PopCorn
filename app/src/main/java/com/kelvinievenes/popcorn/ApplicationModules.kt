@@ -7,8 +7,8 @@ import com.kelvinievenes.popcorn.domain.usecases.details.DetailsUseCase
 import com.kelvinievenes.popcorn.domain.usecases.movielist.MovieListUseCase
 import com.kelvinievenes.popcorn.presentation.details.presenter.DetailsPresenter
 import com.kelvinievenes.popcorn.presentation.details.view.DetailsActivity
+import com.kelvinievenes.popcorn.presentation.main.view.MainActivity
 import com.kelvinievenes.popcorn.presentation.movielist.presenter.MovieListPresenter
-import com.kelvinievenes.popcorn.presentation.movielist.view.MovieListActivity
 import org.koin.dsl.module
 
 val webServiceModules = module {
@@ -34,7 +34,7 @@ val presenterModules = module {
 }
 
 val viewModules = module {
-    factory { MovieListActivity() }
+    factory { MainActivity() }
     factory { DetailsActivity() }
 }
 
