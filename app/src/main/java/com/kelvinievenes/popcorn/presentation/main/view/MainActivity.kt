@@ -6,12 +6,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.kelvinievenes.popcorn.R
+import com.kelvinievenes.popcorn.presentation.favorites.view.FavoritesFragment
 import com.kelvinievenes.popcorn.presentation.movielist.view.MovieListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var movieListFragment: MovieListFragment
+    private lateinit var favoritesFragment: FavoritesFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupFragments() {
         movieListFragment = MovieListFragment()
+        favoritesFragment = FavoritesFragment()
         bottomNavigationView.selectedItemId = R.id.actionMovieList
     }
 
@@ -30,9 +34,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.actionMovieList -> handleFragments(movieListFragment)
-                R.id.actionFavorites -> {
-
-                }
+                R.id.actionFavorites -> handleFragments(favoritesFragment)
             }
             return@setOnNavigationItemSelectedListener true
         }
