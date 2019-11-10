@@ -41,7 +41,7 @@ val repositoryModules = module {
 
 val useCaseModules = module {
     single { MovieListUseCase(get()) }
-    single { DetailsUseCase(get()) }
+    single { DetailsUseCase(get(), get()) }
     single { FavoritesUseCase(get()) }
 }
 

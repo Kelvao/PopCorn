@@ -56,6 +56,13 @@ data class Resource<out DataType>(
                 data = data
             )
 
+        fun <DataType> addSuccess(): Resource<DataType> = Resource(Status.ADD_SUCCESS)
+
+        fun <DataType> removeSuccess(data: DataType?): Resource<DataType> =
+            Resource(
+                Status.REMOVE_SUCCESS,
+                data = data
+            )
     }
 }
 
@@ -67,7 +74,9 @@ enum class Status {
     LOADING_NEXT_PAGE,
     SUCCESS_NEXT_PAGE,
     EMPTY_NEXT_PAGE,
-    ERROR_NEXT_PAGE
+    ERROR_NEXT_PAGE,
+    ADD_SUCCESS,
+    REMOVE_SUCCESS
 }
 
 typealias MutableLiveDataResource<DataType> = MutableLiveData<Resource<DataType>>

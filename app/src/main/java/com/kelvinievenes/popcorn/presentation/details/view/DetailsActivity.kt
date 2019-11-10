@@ -62,18 +62,25 @@ class DetailsActivity : AppCompatActivity() {
     private fun observeChanges() {
         presenter.movieDetailsLiveData.observe(this, Observer { resource ->
             when (resource.status) {
-                Status.ERROR -> {
-                    loader.visibility = GONE
-                    showErrorMessage(resource.message)
-                }
-                Status.LOADING -> {
-                    loader.visibility = VISIBLE
-                }
-                else -> {
+                Status.LOADING -> loader.visibility = VISIBLE
+                Status.SUCCESS -> {
                     loader.visibility = GONE
                     resource.data?.let {
                         bindDetails(it)
                     }
+                }
+                Status.ADD_SUCCESS -> {
+
+                }
+                Status.REMOVE_SUCCESS -> {
+
+                }
+                Status.ERROR -> {
+                    loader.visibility = GONE
+                    showErrorMessage(resource.message)
+                }
+                else -> {
+
                 }
             }
         })

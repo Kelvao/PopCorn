@@ -121,6 +121,9 @@ class MovieListFragment : Fragment() {
                     showErrorMessage(resource.message)
                     movieListAdapter.hideLoader()
                 }
+                else -> {
+
+                }
             }
         })
     }

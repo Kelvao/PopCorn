@@ -1,6 +1,5 @@
 package com.kelvinievenes.popcorn.domain.model
 
-import com.kelvinievenes.popcorn.data.local.model.RatingRow
 import com.kelvinievenes.popcorn.data.remote.model.MovieWs
 import com.kelvinievenes.popcorn.data.remote.model.RatingWs
 
