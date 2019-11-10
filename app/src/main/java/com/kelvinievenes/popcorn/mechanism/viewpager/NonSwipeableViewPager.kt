@@ -1,4 +1,4 @@
-package com.kelvinievenes.popcorn.mechanism.viewPager
+package com.kelvinievenes.popcorn.mechanism.viewpager
 
 import android.content.Context
 import android.util.AttributeSet

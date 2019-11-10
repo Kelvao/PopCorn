@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.forEachIndexed
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.presentation.main.view.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*

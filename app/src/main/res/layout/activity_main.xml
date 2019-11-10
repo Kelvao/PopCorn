@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.view.MainActivity">
 
-    <com.kelvinievenes.popcorn.mechanism.viewPager.NonSwipeableViewPager
+    <com.kelvinievenes.popcorn.mechanism.viewpager.NonSwipeableViewPager
         android:id="@+id/nonSwipeableViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
