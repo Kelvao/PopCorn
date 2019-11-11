@@ -1,8 +1,6 @@
 package com.kelvinievenes.popcorn.domain.usecases.favorites
 
-import com.kelvinievenes.popcorn.data.local.model.MovieEntity
 import com.kelvinievenes.popcorn.data.repository.FavoritesRepository
-import com.kelvinievenes.popcorn.domain.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -10,14 +8,24 @@ class FavoritesUseCase(
     private val repository: FavoritesRepository
 ) {
 
-    suspend fun getFavorites() =
+    private var lastSearch: String = ""
+
+    suspend fun getAllFavorites() =
         withContext(Dispatchers.IO) {
-            repository.getFavorites().map { it.toMovie() }
+            repository.getAllFavorites()
+                .map { it.toMovie() }
+                .toMutableList()
         }
 
-    suspend fun removeFavorite(movie: Movie) =
+    suspend fun getFavorites(search: String) =
         withContext(Dispatchers.IO) {
-            repository.removeFavorite(MovieEntity(movie)).toMovie()
+            if (search.isEmpty() && lastSearch.isEmpty()) {
+                return@withContext getAllFavorites()
+            } else {
+                return@withContext repository
+                    .getFavorites(if (search.isEmpty()) lastSearch else search)
+                    .map { it.toMovie() }
+                    .toMutableList()
+            }
         }
-
 }

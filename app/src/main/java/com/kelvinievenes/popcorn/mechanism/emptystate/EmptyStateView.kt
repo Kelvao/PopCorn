@@ -13,12 +13,6 @@ class EmptyStateView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    var state: State? = null
-        set(value) {
-            field = value
-            value?.let { setupState(it) }
-        }
-
     init {
         LayoutInflater.from(context).inflate(R.layout.empty_state_view_layout, this, true)
     }
@@ -29,21 +23,39 @@ class EmptyStateView @JvmOverloads constructor(
         message.text = context.getText(state.message)
     }
 
+    fun show(state: State) {
+        visibility = VISIBLE
+        setupState(state)
+    }
+
+    fun hide() {
+        visibility = GONE
+    }
 
     enum class State(
         @DrawableRes val icon: Int,
         @StringRes val title: Int,
         @StringRes val message: Int
     ) {
-        INITIAL(
+        INITIAL_MOVIE_LIST(
             R.drawable.ic_desert,
             R.string.empty_state_initial_title,
             R.string.empty_state_initial_message
         ),
-        EMPTY(
+        EMPTY_MOVIE_LIST(
             R.drawable.ic_desert,
-            R.string.empty_state_empty_title,
-            R.string.empty_state_empty_message
+            R.string.empty_state_empty_movie_list_title,
+            R.string.empty_state_empty_movie_list_message
+        ),
+        EMPTY_FAVORITES(
+            R.drawable.ic_desert,
+            R.string.empty_state_empty_favorite_title,
+            R.string.empty_state_empty_favorite_message
+        ),
+        EMPTY_FAVORITES_SEARCH(
+            R.drawable.ic_desert,
+            R.string.empty_state_empty_favorite_search_title,
+            R.string.empty_state_empty_favorite_search_message
         )
     }
 

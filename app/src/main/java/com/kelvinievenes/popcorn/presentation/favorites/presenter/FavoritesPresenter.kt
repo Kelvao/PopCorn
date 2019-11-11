@@ -11,23 +11,34 @@ class FavoritesPresenter(
     private val useCase: FavoritesUseCase
 ) : ExecutorCoroutineScope by getCoroutineScope() {
 
-    val favoritesLiveData = MutableLiveDataResource<List<Movie>>()
+    val favoritesLiveData = MutableLiveDataResource<MutableList<Movie>>()
 
-    fun getFavorites() = runCoroutine {
+    fun getAllFavorites() = runCoroutine {
         favoritesLiveData.postValue(Resource.loading())
-        favoritesLiveData.postValue(Resource.success(useCase.getFavorites()))
+        val favorites = useCase.getAllFavorites()
+        if (favorites.size > 0) {
+            favoritesLiveData.postValue(Resource.success(useCase.getAllFavorites()))
+        } else {
+            favoritesLiveData.postValue(Resource.empty())
+        }
     } onError {
         favoritesLiveData.postValue(Resource.error())
     }
 
-    fun removeFavorite(movie: Movie) = runCoroutine {
-        favoritesLiveData.postValue(
-            Resource.removeSuccess(
-                listOf(useCase.removeFavorite(movie))
+    fun getFavorites(search: String = "") = runCoroutine {
+        favoritesLiveData.postValue(Resource.loading())
+        val favorites = useCase.getFavorites(search)
+        if (favorites.size > 0) {
+            favoritesLiveData.postValue(Resource.success(useCase.getFavorites(search)))
+        } else {
+            favoritesLiveData.postValue(
+                if (search.isEmpty()) Resource.empty()
+                else Resource.emptySearch()
             )
-        )
+        }
     } onError {
         favoritesLiveData.postValue(Resource.error())
     }
+
 
 }

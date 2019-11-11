@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kelvinievenes.popcorn.R
+import com.kelvinievenes.popcorn.mechanism.hideKeyboard
 import com.kelvinievenes.popcorn.presentation.main.view.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,9 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
+            hideKeyboard()
             when (it.itemId) {
-                R.id.actionMovieList -> nonSwipeableViewPager.currentItem = 0
-                R.id.actionFavorites -> nonSwipeableViewPager.currentItem = 1
+                R.id.actionMovieList -> nonSwipeableViewPager.setCurrentItem(0, true)
+                R.id.actionFavorites -> nonSwipeableViewPager.setCurrentItem(1, true)
             }
             return@setOnNavigationItemSelectedListener true
         }

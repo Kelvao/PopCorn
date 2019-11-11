@@ -17,9 +17,11 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromGenreRowListToJson(genres: List<String>?): String? = genres.toString()
+    fun fromGenreRowListToJson(genres: List<String>?): String? = Gson().toJson(genres)
 
     @TypeConverter
-    fun toGenreList(genres: String?): List<String>? = genres?.split(",")
-
+    fun toGenreList(json: String?): List<String>? {
+        val notesType = object : TypeToken<List<String>>() {}.type
+        return Gson().fromJson<List<String>>(json, notesType)
+    }
 }

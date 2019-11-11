@@ -16,8 +16,16 @@ class DetailsUseCase(
 
     suspend fun getMovieDetails(imdbId: String) =
         withContext(Dispatchers.IO) {
-            movieCached = Movie(movieRepository.getMovieDetails(imdbId))
-            movieCached
+            val movieEntity = favoritesRepository.getFavoriteByImdbId(imdbId)
+            if (movieEntity == null) {
+                movieCached = Movie(movieRepository.getMovieDetails(imdbId))
+                movieCached
+            } else {
+                movieCached = movieEntity.toMovie().apply {
+                    isFavorite = true
+                }
+                movieCached
+            }
         }
 
     suspend fun addFavorite() =

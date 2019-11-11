@@ -47,7 +47,7 @@ data class MovieEntity(
             director,
             writers,
             plot,
-            ratings.map { Rating(it.source, it.value) }.toList()
+            ratings.map { Rating(it.source, it.value) }
         )
     }
 }

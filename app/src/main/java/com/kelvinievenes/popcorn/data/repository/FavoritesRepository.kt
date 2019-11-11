@@ -9,13 +9,19 @@ import kotlinx.coroutines.withContext
 class FavoritesRepository(
     private val dataSource: FavoritesLocalDataSource
 ) {
-    suspend fun getFavorites() =
+    suspend fun getAllFavorites() =
         withContext(Dispatchers.IO) {
             runDatabaseTransaction {
                 dataSource.getAllFavorites()
             }
         }
 
+    suspend fun getFavorites(search: String) =
+        withContext(Dispatchers.IO) {
+            runDatabaseTransaction {
+                dataSource.getFavorites("%".plus(search.plus("%")))
+            }
+        }
 
     suspend fun addFavorite(movie: MovieEntity) =
         withContext(Dispatchers.IO) {
@@ -24,11 +30,18 @@ class FavoritesRepository(
             }
         }
 
-    suspend fun removeFavorite(movieEntity: MovieEntity) =
+    suspend fun removeFavorite(movie: MovieEntity) =
         withContext(Dispatchers.IO) {
             runDatabaseTransaction {
-                dataSource.removeFavorite(movieEntity)
-                movieEntity
+                dataSource.removeFavorite(movie)
+                movie
+            }
+        }
+
+    suspend fun getFavoriteByImdbId(imdbId: String) =
+        withContext(Dispatchers.IO) {
+            runDatabaseTransaction {
+                dataSource.getFavoriteByImdbId(imdbId)
             }
         }
 }

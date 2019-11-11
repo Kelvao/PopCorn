@@ -3,6 +3,7 @@ package com.kelvinievenes.popcorn.mechanism.sort
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kelvinievenes.popcorn.R
 import kotlinx.android.synthetic.main.sort_fab_menu_view_layout.view.*
@@ -12,6 +13,8 @@ class SortFabMenuView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var isOpened = false
+    var sortOption: Option? = null
+
     var clickListener: ((Option) -> Unit)? = null
 
     init {
@@ -29,39 +32,43 @@ class SortFabMenuView @JvmOverloads constructor(
         }
 
         fabDate.setOnClickListener {
+            sortOption = Option.DATE
             clickListener?.invoke(Option.DATE)
             close()
         }
         fabName.setOnClickListener {
+            sortOption = Option.NAME
             clickListener?.invoke(Option.NAME)
             close()
         }
     }
 
-    fun open() {
+    private fun open() {
         isOpened = true
         fabMenu.setImageResource(R.drawable.ic_close)
-        fabDate.animate().apply {
-            translationY(-resources.getDimension(R.dimen.standard_55))
-            duration = 200
-        }
-        fabName.animate().apply {
-            translationY(-resources.getDimension(R.dimen.standard_105))
-            duration = 200
-        }
+        fabDate.translationYAnimation(-resources.getDimension(R.dimen.standard_55))
+        fabName.translationYAnimation(-resources.getDimension(R.dimen.standard_105))
     }
 
-    fun close() {
+    private fun close() {
         isOpened = false
-        fabMenu.setImageResource(R.drawable.ic_sort)
-        fabName.animate().apply {
-            translationY(0f)
+        fabMenu.setImageResource(R.drawable.ic_sort_menu)
+        fabName.translationYAnimation(0f)
+        fabDate.translationYAnimation(0f)
+    }
+
+    private fun View.translationYAnimation(y: Float) =
+        animate().apply {
+            translationY(y)
             duration = 200
         }
-        fabDate.animate().apply {
-            translationY(0f)
-            duration = 200
-        }
+
+    fun show() {
+        visibility = VISIBLE
+    }
+
+    fun hide() {
+        visibility = GONE
     }
 
     enum class Option {

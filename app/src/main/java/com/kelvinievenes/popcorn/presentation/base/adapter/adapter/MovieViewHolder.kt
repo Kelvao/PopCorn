@@ -1,4 +1,4 @@
-package com.kelvinievenes.popcorn.presentation.movielist.view.adapter
+package com.kelvinievenes.popcorn.presentation.base.adapter.adapter
 
 import android.graphics.drawable.Drawable
 import android.view.View
