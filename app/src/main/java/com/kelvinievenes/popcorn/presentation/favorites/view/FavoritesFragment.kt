@@ -1,8 +1,10 @@
-package com.kelvinievenes.popcorn.presentation.movielist.view
+package com.kelvinievenes.popcorn.presentation.favorites.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,17 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.mechanism.emptystate.EmptyStateView
 import com.kelvinievenes.popcorn.mechanism.livedata.Status
-import com.kelvinievenes.popcorn.mechanism.sort.SortFabMenuView
 import com.kelvinievenes.popcorn.presentation.base.adapter.adapter.MovieListAdapter
 import com.kelvinievenes.popcorn.presentation.details.view.DetailsActivity
-import com.kelvinievenes.popcorn.presentation.movielist.presenter.MovieListPresenter
+import com.kelvinievenes.popcorn.presentation.favorites.presenter.FavoritesPresenter
 import kotlinx.android.synthetic.main.base_fragment_list.*
 import org.koin.android.ext.android.inject
 
-class MovieListFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
-    private val presenter: MovieListPresenter by inject()
-    private lateinit var movieListAdapter: MovieListAdapter
+    private val presenter: FavoritesPresenter by inject()
+    private lateinit var favoritesAdapter: MovieListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,15 +33,16 @@ class MovieListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        emptyState.show(EmptyStateView.State.INITIAL_MOVIE_LIST)
+        emptyState.hide()
         setupRecyclerView()
         setupFabMenu()
         setupSearchBar()
         observeChanges()
+        presenter.getAllFavorites()
     }
 
     private fun setupRecyclerView() {
-        movieListAdapter = MovieListAdapter {
+        favoritesAdapter = MovieListAdapter(false) {
             activity?.let { context ->
                 startActivity(DetailsActivity.getStartIntent(context, it.imdbId))
             }
@@ -53,75 +55,56 @@ class MovieListFragment : Fragment() {
         )
 
         movieList.apply {
-            adapter = movieListAdapter
+            adapter = favoritesAdapter
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            addOnScrollListener(object : PopCornOnScrollListener(linearLayoutManager, 5) {
-                override fun onScrolledToThreshold() {
-                    presenter.getMoreMovies()
-                }
-            })
         }
     }
 
     private fun setupFabMenu() {
         fabMenuSort.clickListener = {
-            movieListAdapter.sort = it
+            favoritesAdapter.sort = it
         }
     }
 
     private fun setupSearchBar() {
         searchBar.addTextChangedListener { search ->
-            if (search.isNotBlank()) {
-                presenter.getMovieList(search)
-            }
+            presenter.getFavorites(search)
         }
     }
 
     private fun observeChanges() {
-        presenter.moviesLiveData.observe(this, Observer { resource ->
+        presenter.favoritesLiveData.observe(this, Observer { resource ->
             when (resource.status) {
                 Status.LOADING -> {
                     emptyState.hide()
                     fabMenuSort.hide()
-                    loader.visibility = View.VISIBLE
-                    movieList.visibility = View.GONE
-                }
-                Status.LOADING_NEXT_PAGE -> {
-                    movieListAdapter.showLoader()
+                    loader.visibility = VISIBLE
+                    movieList.visibility = GONE
                 }
                 Status.SUCCESS -> {
-                    movieList.scrollToPosition(0)
                     resource.data?.let {
-                        movieListAdapter.data = it
+                        favoritesAdapter.data = it
                         fabMenuSort.show()
-                        movieList.visibility = View.VISIBLE
-                    } ?: emptyState.show(EmptyStateView.State.EMPTY_MOVIE_LIST)
-                    loader.visibility = View.GONE
-                }
-                Status.SUCCESS_NEXT_PAGE -> {
-                    resource.data?.let {
-                        movieListAdapter.addAllData(it)
-                    }
-                    movieListAdapter.hideLoader()
+                        emptyState.hide()
+                        movieList.visibility = VISIBLE
+                    } ?: emptyState.show(EmptyStateView.State.EMPTY_FAVORITES)
+                    loader.visibility = GONE
                 }
                 Status.EMPTY -> {
-                    emptyState.show(EmptyStateView.State.EMPTY_MOVIE_LIST)
+                    emptyState.show(EmptyStateView.State.EMPTY_FAVORITES)
                     fabMenuSort.hide()
-                    loader.visibility = View.GONE
+                    loader.visibility = GONE
+                    movieList.visibility = GONE
                 }
-                Status.EMPTY_NEXT_PAGE -> {
-                    movieListAdapter.hideLoader()
+                Status.EMPTY_SEARCH -> {
+                    emptyState.show(EmptyStateView.State.EMPTY_FAVORITES_SEARCH)
+                    fabMenuSort.hide()
+                    loader.visibility = GONE
+                    movieList.visibility = GONE
                 }
                 Status.ERROR -> {
                     showErrorMessage(resource.message)
-                    movieListAdapter.hideLoader()
-                    fabMenuSort.hide()
-                    loader.visibility = View.GONE
-                }
-                Status.ERROR_NEXT_PAGE -> {
-                    showErrorMessage(resource.message)
-                    movieListAdapter.hideLoader()
                 }
                 else -> {
 
@@ -136,5 +119,8 @@ class MovieListFragment : Fragment() {
         }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        presenter.getFavorites()
+    }
 }

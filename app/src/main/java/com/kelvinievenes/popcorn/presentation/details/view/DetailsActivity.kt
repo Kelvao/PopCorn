@@ -41,6 +41,7 @@ class DetailsActivity : AppCompatActivity() {
 
         setupToolbar()
         setupBackground()
+        setupFavoriteFab()
         observeChanges()
         intent.getStringExtra(EXTRA_IMDB)?.let {
             presenter.getMovieDetails(it)
@@ -56,39 +57,58 @@ class DetailsActivity : AppCompatActivity() {
     private fun setupBackground() {
         movieDetails.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             background.visibility = if (scrollY > 0) VISIBLE else GONE
+            favoriteFab.apply {
+                if (scrollY > 0) show()
+                else hide()
+            }
+        }
+    }
+
+    private fun setupFavoriteFab() {
+        favoriteFab.onClickListener = { isChecked ->
+            if (isChecked) presenter.addFavorite()
+            else presenter.removeFavorite()
         }
     }
 
     private fun observeChanges() {
         presenter.movieDetailsLiveData.observe(this, Observer { resource ->
             when (resource.status) {
-                Status.ERROR -> {
-                    loader.visibility = GONE
-                    showErrorMessage(resource.message)
-                }
-                Status.LOADING -> {
-                    loader.visibility = VISIBLE
-                }
-                else -> {
+                Status.LOADING -> loader.visibility = VISIBLE
+                Status.SUCCESS -> {
                     loader.visibility = GONE
                     resource.data?.let {
                         bindDetails(it)
                     }
+                }
+                Status.ADD_SUCCESS -> {
+                    favoriteFab.isChecked = true
+                }
+                Status.REMOVE_SUCCESS -> {
+                    favoriteFab.isChecked = false
+                }
+                Status.ERROR -> {
+                    loader.visibility = GONE
+                    showErrorMessage(resource.message)
+                }
+                else -> {
+
                 }
             }
         })
     }
 
     private fun bindDetails(details: Movie) {
-        bindPoster(details)
         movieTitle.text = details.title
         year.text = getString(R.string.details_year, details.released)
         director.text = getString(R.string.details_director, details.director)
         writers.text = getString(R.string.details_writers, details.writers)
         rated.text = details.rated
         plot.text = details.plot
+        bindPoster(details)
         bindGenre(details)
         bindRatings(details)
+        bindFavorite(details)
     }
 
     private fun bindPoster(details: Movie) {
@@ -148,6 +168,11 @@ class DetailsActivity : AppCompatActivity() {
             layoutManager = linearLayoutManager
             adapter = RatingAdapter(details.ratings)
         }
+    }
+
+    private fun bindFavorite(movie: Movie) {
+        favoriteFab.isChecked = movie.isFavorite
+        favoriteFab.hide()
     }
 
     override fun onSupportNavigateUp(): Boolean {

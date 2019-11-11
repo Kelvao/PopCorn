@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_sort_name"
+        app:elevation="1dp"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="@id/fabMenu"
         app:layout_constraintEnd_toEndOf="@id/fabMenu"
@@ -20,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_sort_year"
+        app:elevation="1dp"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="@id/fabMenu"
         app:layout_constraintEnd_toEndOf="@id/fabMenu"
@@ -31,7 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_sort"
+        android:src="@drawable/ic_sort_menu"
+        app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

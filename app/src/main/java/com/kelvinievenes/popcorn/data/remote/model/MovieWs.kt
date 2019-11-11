@@ -22,8 +22,6 @@ data class MovieWs(
     val rated: String? = "",
     @SerializedName("Released")
     val released: String? = "",
-    @SerializedName("Runtime")
-    val runtime: String? = "",
     @SerializedName("Genre")
     val genres: String? = "",
     @SerializedName("Director")

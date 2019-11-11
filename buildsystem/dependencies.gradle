@@ -37,4 +37,7 @@ ext {
 
     // Dependence injector
     koinVersion = "2.0.1"
+
+    // Database
+    roomVersion = "2.2.1"
 }
