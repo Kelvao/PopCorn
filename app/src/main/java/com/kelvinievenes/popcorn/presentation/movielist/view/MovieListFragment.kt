@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.mechanism.emptystate.EmptyStateView
 import com.kelvinievenes.popcorn.mechanism.livedata.Status
-import com.kelvinievenes.popcorn.mechanism.sort.SortFabMenuView
 import com.kelvinievenes.popcorn.presentation.base.adapter.adapter.MovieListAdapter
 import com.kelvinievenes.popcorn.presentation.details.view.DetailsActivity
 import com.kelvinievenes.popcorn.presentation.movielist.presenter.MovieListPresenter

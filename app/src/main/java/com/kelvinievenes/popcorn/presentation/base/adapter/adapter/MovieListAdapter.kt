@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kelvinievenes.popcorn.R
 import com.kelvinievenes.popcorn.domain.model.Movie
-import com.kelvinievenes.popcorn.mechanism.sort.SortFabMenuView
+import com.kelvinievenes.popcorn.mechanism.sortfabmenu.SortFabMenuView
 
 class MovieListAdapter(
     private var hasLoader: Boolean = false,
