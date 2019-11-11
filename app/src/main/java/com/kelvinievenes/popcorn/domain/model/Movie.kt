@@ -3,33 +3,27 @@ package com.kelvinievenes.popcorn.domain.model
 import com.kelvinievenes.popcorn.data.remote.model.MovieWs
 import com.kelvinievenes.popcorn.data.remote.model.RatingWs
 
-data class Movies(
-    var movies: List<Movie>,
-    var totalResults: Int
-)
-
 data class Movie(
+    var imdbId: String,
     var title: String,
     var year: String,
-    var imdbId: String,
     var poster: String,
-    val rated: String,
-    val released: String,
-    val runtime: String,
-    val genres: List<String>,
-    val director: String,
-    val writers: String,
-    val plot: String,
-    val ratings: List<Rating>
+    var rated: String,
+    var released: String,
+    var genres: List<String>,
+    var director: String,
+    var writers: String,
+    var plot: String,
+    var ratings: List<Rating>,
+    var isFavorite: Boolean = false
 ) {
     constructor(movie: MovieWs) : this(
+        movie.imdbId.orEmpty(),
         movie.title.orEmpty(),
         movie.year.orEmpty(),
-        movie.imdbId.orEmpty(),
         movie.poster.orEmpty(),
         movie.rated.orEmpty(),
         movie.released.orEmpty(),
-        movie.runtime.orEmpty(),
         if (movie.genres != null && movie.genres.isNotEmpty())
             movie.genres.replace(" ", "").split(",")
         else emptyList(),
@@ -46,9 +40,9 @@ data class Movie(
 
 enum class Quality(
     val quality: String
-){
+) {
     NORMAL("SX300"),
-    HIGH("SX1200")
+    HIGH("SX800")
 }
 
 data class Rating(

@@ -18,6 +18,16 @@ android {
 
         buildConfigField "String", "WS_BASE_URL", '"https://www.omdbapi.com/"'
         buildConfigField "String", "WS_API_KEY", '"764f1ac3"'
+        buildConfigField "String", "DATABASE_NAME", '"Favorites"'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"
+                ]
+            }
+        }
     }
 
     sourceSets {
@@ -51,10 +61,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // AppCompat
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
+
+    // Legacy Support
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
 
     // KotlinX
     implementation "androidx.core:core-ktx:$kotlinXVersion"
@@ -86,6 +101,12 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
 
-    //Coroutines
+    // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+    // Database (Room)
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    //Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$roomVersion"
 }

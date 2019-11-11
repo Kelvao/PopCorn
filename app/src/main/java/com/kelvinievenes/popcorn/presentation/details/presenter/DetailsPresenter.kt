@@ -21,4 +21,20 @@ class DetailsPresenter(private val detailsUseCase: DetailsUseCase) :
         movieDetailsLiveData.postValue(Resource.error())
     }
 
+    fun addFavorite() = runCoroutine {
+        detailsUseCase.addFavorite()
+        movieDetailsLiveData.postValue(Resource.addSuccess())
+    } onError {
+        movieDetailsLiveData.postValue(Resource.error())
+    }
+
+    fun removeFavorite() = runCoroutine {
+        movieDetailsLiveData.postValue(
+            Resource.removeSuccess(
+                detailsUseCase.removeFavorite()
+            )
+        )
+    } onError {
+        movieDetailsLiveData.postValue(Resource.error())
+    }
 }

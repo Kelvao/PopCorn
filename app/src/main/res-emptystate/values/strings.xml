@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_state_initial_title">Nada por aqui ainda</string>
+    <string name="empty_state_initial_message">Use a barra de busca para começar!</string>
+
+    <string name="empty_state_empty_movie_list_title">Busca sem Resultados</string>
+    <string name="empty_state_empty_movie_list_message">Tente buscar novamente usando\num nome de filme diferente</string>
+
+    <string name="empty_state_empty_favorite_title">Nenhum favorito</string>
+    <string name="empty_state_empty_favorite_message">Você ainda não adicionou filmes aos seus favoritos</string>
+
+    <string name="empty_state_empty_favorite_search_title">Nenhum favorito encontrado</string>
+    <string name="empty_state_empty_favorite_search_message">Você não favoritou filmes com esse nome</string>
+</resources>

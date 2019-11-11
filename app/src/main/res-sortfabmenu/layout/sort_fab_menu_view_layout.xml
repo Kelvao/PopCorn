@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/titleName"
+        style="@style/FabMenuTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/fab_menu_title_name"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/fabName"
+        app:layout_constraintEnd_toStartOf="@id/fabName"
+        app:layout_constraintTop_toTopOf="@id/fabName" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sort_name"
+        app:elevation="1dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/fabMenu"
+        app:layout_constraintEnd_toEndOf="@id/fabMenu"
+        app:layout_constraintStart_toStartOf="@id/fabMenu"
+        app:layout_constraintTop_toTopOf="@id/fabMenu" />
+
+    <TextView
+        android:id="@+id/titleDate"
+        style="@style/FabMenuTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/fab_menu_title_date"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/fabDate"
+        app:layout_constraintEnd_toStartOf="@id/fabDate"
+        app:layout_constraintTop_toTopOf="@id/fabDate" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sort_year"
+        app:elevation="1dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@id/fabMenu"
+        app:layout_constraintEnd_toEndOf="@id/fabMenu"
+        app:layout_constraintStart_toStartOf="@id/fabMenu"
+        app:layout_constraintTop_toTopOf="@id/fabMenu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_sort_menu"
+        app:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</merge>

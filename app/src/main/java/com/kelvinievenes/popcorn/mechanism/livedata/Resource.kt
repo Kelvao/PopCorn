@@ -26,11 +26,22 @@ data class Resource<out DataType>(
         fun <DataType> successNextPage(data: DataType? = null): Resource<DataType> =
             Resource(Status.SUCCESS_NEXT_PAGE, data = data)
 
+        fun <DataType> addSuccess(): Resource<DataType> = Resource(Status.ADD_SUCCESS)
+
+        fun <DataType> removeSuccess(data: DataType?): Resource<DataType> =
+            Resource(
+                Status.REMOVE_SUCCESS,
+                data = data
+            )
+
         fun <DataType> empty(): Resource<DataType> =
             Resource(Status.EMPTY)
 
         fun <DataType> emptyNextPage(): Resource<DataType> =
             Resource(Status.EMPTY_NEXT_PAGE)
+
+        fun <DataType> emptySearch(): Resource<DataType> =
+            Resource(Status.EMPTY_SEARCH)
 
         fun <DataType> error(
             message: String? = null, errorCode: Int? = null,
@@ -55,7 +66,6 @@ data class Resource<out DataType>(
                 errorMessageId = errorMessageId,
                 data = data
             )
-
     }
 }
 
@@ -67,7 +77,10 @@ enum class Status {
     LOADING_NEXT_PAGE,
     SUCCESS_NEXT_PAGE,
     EMPTY_NEXT_PAGE,
-    ERROR_NEXT_PAGE
+    ERROR_NEXT_PAGE,
+    ADD_SUCCESS,
+    REMOVE_SUCCESS,
+    EMPTY_SEARCH
 }
 
 typealias MutableLiveDataResource<DataType> = MutableLiveData<Resource<DataType>>
